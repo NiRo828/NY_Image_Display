@@ -1,10 +1,11 @@
-// Variables
+// ---- Variables ----
 let currentPage = 1;
+const apiKey = '39574753-1d7916569f8a04f1cc685f33f';
 
-// Event Listeners
+// ---- Event Listeners ----
 document.getElementById('search-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    currentPage = 1;  // Reset page count on a new search
+    currentPage = 1;
     performSearch();
 });
 
@@ -24,18 +25,16 @@ document.querySelectorAll('.tag').forEach(tag => {
     });
 });
 
-// Functions
+// ---- Functions ----
 function performSearch() {
-    document.getElementById('loader').style.display = 'block'; 
     const searchInput = document.getElementById('search-input').value;
-    const apiKey = '39574753-1d7916569f8a04f1cc685f33f';
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(searchInput)}&page=${currentPage}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
             if (currentPage === 1) {
-                document.getElementById('image-results').innerHTML = '';  // Clear results on new search
+                document.getElementById('image-results').innerHTML = '';
             }
             displayImages(data.hits);
             addImageCardListeners();
@@ -60,9 +59,9 @@ function displayImages(imageData) {
 
         const favoriteIcon = document.createElement('div');
         favoriteIcon.classList.add('favorite-icon');
-        favoriteIcon.innerHTML = "&#9733;";  // Star character
+        favoriteIcon.innerHTML = "&#9733;";
         favoriteIcon.addEventListener('click', function(e) {
-            e.stopPropagation();  // Prevent triggering the card's click event
+            e.stopPropagation();
             this.classList.toggle('favorited');
         });
 
