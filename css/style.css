@@ -4,11 +4,11 @@
     gap: 16px;
  }
  
- .image-card {
+ /* .image-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
- }
+ } */
  
  .image-card img {
     width: 100%;
@@ -44,4 +44,18 @@
     top: 5px;
     right: 10px;
     cursor: pointer;
+}
+
+/* Mobile styles by default */
+.image-card {
+    width: 100%;
+}
+
+/* Desktop and larger devices */
+@media screen and (min-width: 768px) {
+    #image-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
 }
