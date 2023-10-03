@@ -20,7 +20,7 @@ document.querySelector('.modal-close').addEventListener('click', function() {
 function performSearch() {
     document.getElementById('loader').style.display = 'block'; 
     const searchInput = document.getElementById('search-input').value;
-    const apiKey = 'YOUR_API_KEY';
+    const apiKey = '39574753-1d7916569f8a04f1cc685f33f';
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(searchInput)}&page=${currentPage}`;
 
     fetch(url)

@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NY Image Displayer</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <form id="search-form">
         <input type="text" id="search-input" placeholder="Search for images...">
         <button type="submit">Search</button>
     </form>
+
     <div id="image-results">
-        <div class="image-card">
-            <img src="imageURL" alt="image description" loading="lazy">
-            <button id="load-more">More Images</button>
-        </div>
-            <div class="image-info">
-                <h3>Image Title</h3>
-                <p>Image Description</p>
-                <p> Tags: tag1, tag2, tag3</p>
-        </div>
-        <div id="image-modal" class="modal-hidden">
-            <div class="modal-content">
-                <span class="modal-close">&times;</span>
-                <img id="modal-image" src="" alt="">
-                <div id="modal-info"></div>
-            </div>
+        <!-- Image cards will be dynamically appended here by JavaScript -->
+    </div>
+
+    <button id="load-more">More Images</button>
+
+    <!-- Modal for image details -->
+    <div id="image-modal" class="modal-hidden">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modal-image" src="" alt="">
+            <div id="modal-info"></div>
         </div>
     </div>
+
+    <!-- Loader -->
     <div id="loader">
         <img src="img/loader.svg" alt="Loading...">
     </div>
 
     <script src="js/main.js"></script>
 </body>
+
 </html>
