@@ -2,6 +2,29 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
     e.preventDefault();
     performSearch();
 });
+document.querySelectorAll('.image-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalInfo = document.getElementById('modal-info');
+
+        modalImage.src = this.querySelector('img').src;
+        modalInfo.textContent = this.querySelector('.image-info p').textContent;
+
+        modal.classList.remove('modal-hidden');
+    });
+});
+
+document.querySelector('.modal-close').addEventListener('click', function() {
+    document.getElementById('image-modal').classList.add('modal-hidden');
+});
+let currentPage = 1;
+
+document.getElementById('load-more').addEventListener('click', function() {
+    currentPage++;
+    performSearch();
+});
+
 
 function performSearch() {
     document.getElementById('loader').style.display = 'block';  // Show loader
@@ -54,4 +77,3 @@ function displayImages(imageData) {
        imageContainer.appendChild(imageCard);
     });
  }
- 
