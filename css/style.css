@@ -1,9 +1,35 @@
-/* Styles for the images container */
+/* ---- Base Styles ---- */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* ---- Tags & Search ---- */
+#tag-filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tag {
+    background-color: #eee;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tag:hover {
+    background-color: #ddd;
+}
+
+/* ---- Image Gallery ---- */
 #image-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .image-card {
@@ -12,8 +38,11 @@
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s; 
-    width: 100%; 
+    transition: transform 0.3s;
+}
+
+.image-card:hover {
+    transform: scale(1.05);
 }
 
 .image-card img {
@@ -22,35 +51,25 @@
     transition: opacity 0.3s;
 }
 
-.image-card:hover {
-    transform: scale(1.05);
-}
-
-.image-card:hover .overlay {
-    opacity: 1;
-    transform: scale(1);
-}
-
 .overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    top: 0;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; 
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
     width: 100%;
-    transition: opacity 0.3s; 
+    transform: scale(0);
+    transition: .3s ease;
+    color: white;
+    padding: 8px;
+}
+
+.image-card:hover .overlay {
+    transform: scale(1);
 }
 
 .overlay h3, .overlay p {
-    color: white;
-    padding: 8px;
     margin: 0;
 }
 
@@ -72,25 +91,40 @@
     transform: scale(1.1);
 }
 
-/* Modal styles and other necessary styles remain as they are ... */
+/* ---- Modal Styles ---- */
+.modal-hidden {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
 
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    overflow: auto;
+}
+
+.modal-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* ---- Responsive Styles ---- */
 @media screen and (min-width: 768px) {
     #image-results {
         grid-template-columns: repeat(3, 1fr);
     }
-}
-
-.tag {
-    background-color: #eee;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    padding: 5px 15px;
-    margin: 5px;
-}
-
-.tag:hover {
-    background-color: #ddd;
 }
