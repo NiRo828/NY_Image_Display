@@ -37,7 +37,7 @@ function performSearch() {
                 document.getElementById('image-results').innerHTML = '';
             }
             displayImages(data.hits);
-            addImageCardListeners();
+            addImageCardListeners(); // Add this line
         })
         .catch(error => console.log(error));
 }
