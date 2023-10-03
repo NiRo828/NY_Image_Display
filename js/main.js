@@ -4,6 +4,7 @@ let currentPage = 1;
 // Event Listeners
 document.getElementById('search-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    currentPage = 1;  // Reset page count on a new search
     performSearch();
 });
 
@@ -16,6 +17,13 @@ document.querySelector('.modal-close').addEventListener('click', function() {
     document.getElementById('image-modal').classList.add('modal-hidden');
 });
 
+document.querySelectorAll('.tag').forEach(tag => {
+    tag.addEventListener('click', function() {
+        document.getElementById('search-input').value = this.getAttribute('data-tag');
+        performSearch();
+    });
+});
+
 // Functions
 function performSearch() {
     document.getElementById('loader').style.display = 'block'; 
@@ -26,11 +34,14 @@ function performSearch() {
     fetch(url)
         .then(response => response.json())
         .then(data => {
+            if (currentPage === 1) {
+                document.getElementById('image-results').innerHTML = '';  // Clear results on new search
+            }
             displayImages(data.hits);
             addImageCardListeners();
         })
         .catch(error => console.log(error));
-} 
+}
 
 function displayImages(imageData) {
     const imageContainer = document.getElementById('image-results');
@@ -43,12 +54,21 @@ function displayImages(imageData) {
         img.src = image.webformatURL;
         img.alt = image.tags;
 
-        const imageInfo = document.createElement('div');
-        imageInfo.classList.add('image-info');
-        imageInfo.innerHTML = `<h3>${image.user}</h3><p>Tags: ${image.tags}</p>`;
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        overlay.innerHTML = `<h3>${image.user}</h3><p>Tags: ${image.tags}</p>`;
+
+        const favoriteIcon = document.createElement('div');
+        favoriteIcon.classList.add('favorite-icon');
+        favoriteIcon.innerHTML = "&#9733;";  // Star character
+        favoriteIcon.addEventListener('click', function(e) {
+            e.stopPropagation();  // Prevent triggering the card's click event
+            this.classList.toggle('favorited');
+        });
 
         imageCard.appendChild(img);
-        imageCard.appendChild(imageInfo);
+        imageCard.appendChild(overlay);
+        imageCard.appendChild(favoriteIcon);
         imageContainer.appendChild(imageCard);
     });
 }
@@ -61,7 +81,7 @@ function addImageCardListeners() {
             const modalInfo = document.getElementById('modal-info');
 
             modalImage.src = this.querySelector('img').src;
-            modalInfo.textContent = this.querySelector('.image-info p').textContent;
+            modalInfo.textContent = this.querySelector('.overlay p').textContent;
             modal.classList.remove('modal-hidden');
         });
     });
