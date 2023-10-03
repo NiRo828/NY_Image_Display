@@ -1,5 +1,21 @@
-.image-card {
-    border: 1px solid #ccc;
-    margin: 10px;
-    padding: 10px;
-}
+#image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+ }
+ 
+ .image-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+ }
+ 
+ .image-card img {
+    width: 100%;
+    display: block;
+ }
+ 
+ .image-info {
+    padding: 8px;
+ }
+ 
