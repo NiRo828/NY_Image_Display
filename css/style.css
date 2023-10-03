@@ -25,6 +25,15 @@ body {
 }
 
 /* ---- Image Gallery ---- */
+#image-modal {
+    display: none;
+    /* other modal styles like positioning, background, etc. */
+}
+
+#image-modal:not(.modal-hidden) {
+    display: block;
+}
+
 #image-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
