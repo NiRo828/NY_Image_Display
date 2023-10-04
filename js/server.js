@@ -1,16 +1,19 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const axios = require('axios');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
+app.use(cors());
+
 // Serve static files from the js directory
 app.use(express.static('js'));
-const API_KEY = '39574753-1d7916569f8a04f1cc685f33f'; // Replace with your API key
+const API_KEY = '39574753-1d7916569f8a04f1cc685f33f'; 
 const BASE_URL = 'https://pixabay.com/api/';
 const cache = {}; // Simple cache object
+
 // Search API Route
 app.post('/api/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
@@ -27,6 +30,7 @@ app.post('/api/search', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch data' });
     }
 });
+
 // Random Images Route
 app.get('/api/random-images', async (req, res) => {
     if (cache.random) {
@@ -40,6 +44,7 @@ app.get('/api/random-images', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch random images' });
     }
 });
+
 // Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
