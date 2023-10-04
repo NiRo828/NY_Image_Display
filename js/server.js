@@ -9,8 +9,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve static files from the public directory
-app.use(express.static('public'));
+// Serve static files from the js directory
+app.use(express.static('js'));
 
 const API_KEY = '39574753-1d7916569f8a04f1cc685f33f'; // Replace with your API key
 const BASE_URL = 'https://pixabay.com/api/';
