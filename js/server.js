@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const axios = require('axios');
+const https = require('https');
 const cors = require('cors');
 const app = express();
 
@@ -23,9 +23,17 @@ app.post('/api/search', async (req, res) => {
         return res.json(cache[cacheKey]);
     }
     try {
-        const response = await axios.get(`${BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(searchTerm)}&page=${page}`);
-        cache[cacheKey] = response.data;
-        res.json(response.data);
+        const url = `${BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(searchTerm)}&page=${page}`;
+        https.get(url, (response) => {
+            let data = '';
+            response.on('data', (chunk) => {
+                data += chunk;
+            });
+            response.on('end', () => {
+                cache[cacheKey] = JSON.parse(data);
+                res.json(JSON.parse(data));
+            });
+        });
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data' });
     }
@@ -37,9 +45,17 @@ app.get('/api/random-images', async (req, res) => {
         return res.json(cache.random);
     }
     try {
-        const response = await axios.get(`${BASE_URL}?key=${API_KEY}&order=popular&per_page=10`);
-        cache.random = response.data;
-        res.json(response.data);
+        const url = `${BASE_URL}?key=${API_KEY}&order=popular&per_page=10`;
+        https.get(url, (response) => {
+            let data = '';
+            response.on('data', (chunk) => {
+                data += chunk;
+            });
+            response.on('end', () => {
+                cache.random = JSON.parse(data);
+                res.json(JSON.parse(data));
+            });
+        });
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch random images' });
     }
@@ -50,17 +66,3 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
-
-
-// // Basic Server
-// const express = require('express');
-// const app = express();
-// const PORT = 5000;
-
-// app.get('/', (req, res) => {
-//     res.send('Hello World!');
-// });
-
-// app.listen(PORT, () => {
-//     console.log(`Server started on port ${PORT}`);
-// });
